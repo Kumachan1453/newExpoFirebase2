@@ -23,6 +23,8 @@ setDoc(doc(firestore, "characters", "mario"), {
   specialAttack: "fireball",
 });
 
+console.log("getFirestore", getFirestore);
+
 export default function App() {
   return (
     <View style={styles.container}>
