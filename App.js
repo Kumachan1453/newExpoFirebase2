@@ -1,13 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, addDoc, collection } from "firebase/firestore";
+// import { getFirestore, doc, setDoc } from "firebase/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBFibr6AzDu9S_Yxpe6NU8N-wUUztiJN2g",
   authDomain: "newexpofirebase2-a3a70.firebaseapp.com",
@@ -17,8 +14,39 @@ const firebaseConfig = {
   appId: "1:402736408737:web:cf097fe991c16e06afe8e0",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+try {
+  const docRef = addDoc(collection(db, "users"), {
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815,
+  });
+  console.log("Document written with ID: ", docRef.id);
+} catch (e) {
+  console.error("Error adding document: ", e);
+}
+
+try {
+  const docRef = addDoc(collection(db, "users"), {
+    first: "Alan",
+    middle: "Mathison",
+    last: "Turing",
+    born: 1912,
+  });
+
+  console.log("Document written with ID: ", docRef.id);
+} catch (e) {
+  console.error("Error adding document: ", e);
+}
+
+// // Add a new document in collection "cities"
+// setDoc(doc(db, "cities", "LA"), {
+//   name: "Los Angeles",
+//   state: "CA",
+//   country: "USA",
+// });
 
 export default function App() {
   return (
