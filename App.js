@@ -19,10 +19,10 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 try {
-  const docRef = addDoc(collection(db, "users"), {
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815,
+  const docRef = addDoc(collection(db, "test"), {
+    first: "A",
+    last: "B",
+    number: 1,
   });
   console.log("Document written with ID: ", docRef.id);
 } catch (e) {
@@ -30,11 +30,11 @@ try {
 }
 
 try {
-  const docRef = addDoc(collection(db, "users"), {
-    first: "Alan",
-    middle: "Mathison",
-    last: "Turing",
-    born: 1912,
+  const docRef = addDoc(collection(db, "test"), {
+    first: "C",
+    middle: "D",
+    last: "E",
+    number: 2,
   });
 
   console.log("Document written with ID: ", docRef.id);

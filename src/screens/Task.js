@@ -1,3 +1,4 @@
+// import { addDoc } from "@firebase/firestore";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -8,8 +9,29 @@ import {
   FlatList,
 } from "react-native";
 import { ListItem } from "../components/ListItem";
+import { initializeApp } from "firebase/app";
+import {
+  doc,
+  getFirestore,
+  addDoc,
+  collection,
+  // deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 
-export const Task = ({ navigation }) => {
+const firebaseConfig = {
+  apiKey: "AIzaSyBFibr6AzDu9S_Yxpe6NU8N-wUUztiJN2g",
+  authDomain: "newexpofirebase2-a3a70.firebaseapp.com",
+  projectId: "newexpofirebase2-a3a70",
+  storageBucket: "newexpofirebase2-a3a70.appspot.com",
+  messagingSenderId: "402736408737",
+  appId: "1:402736408737:web:cf097fe991c16e06afe8e0",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export const Task = () => {
   const [content, setContent] = useState("");
   const [tasks, setTasks] = useState([]);
   const [id, setId] = useState(1);
@@ -22,6 +44,14 @@ export const Task = ({ navigation }) => {
     setId(id + 1);
     setTasks(tasks.concat([{ id: id, content: content }]));
     setContent(""); //関数を渡す。
+    try {
+      const docRef = addDoc(collection(db, "contents"), {
+        content: content,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
   const deleteTask = (item) => {
@@ -33,6 +63,13 @@ export const Task = ({ navigation }) => {
       // 「id」はゴミ箱ボタンを押した「id」を指定できるようにする。すなわち「deleteTask」にゴミ箱ボタンを押した「id」を渡す。
     });
     setTasks(array);
+
+    // const docRef = doc(db, "contents", content);
+
+    // Remove the 'capital' field from the document
+    // updateDoc(docRef, {
+    //   capital: deleteField(content),
+    // });
   };
 
   return (
